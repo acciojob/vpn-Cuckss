@@ -1,30 +1,38 @@
 package com.driver.model;
 
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Connection")
 public class Connection {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+    private int id;
 
     @ManyToOne
     @JoinColumn
     private ServiceProvider serviceProvider;
 
-    //setting the parent user wrt to child
     @ManyToOne
     @JoinColumn
     private User user;
 
-    public User getUser() {
-        return user;
+    public Connection() {
     }
 
-    public void setUser(User user) {
+    public Connection(int id, ServiceProvider serviceProvider, User user) {
+        this.id = id;
+        this.serviceProvider = serviceProvider;
         this.user = user;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public ServiceProvider getServiceProvider() {
@@ -35,14 +43,11 @@ public class Connection {
         this.serviceProvider = serviceProvider;
     }
 
-    public Connection() {
+    public User getUser() {
+        return user;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
