@@ -1,21 +1,22 @@
 package com.driver.model;
 
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
 import javax.persistence.*;
 
 @Entity
-public class Country {
+public class Connection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
-    @Enumerated(value = EnumType.STRING)
-    private CountryName countryName;
-    private String code;
-    //setting parent serviceprovider wrt to child country;
+
     @ManyToOne
     @JoinColumn
     private ServiceProvider serviceProvider;
-    //setting the connection between country and user;
-    @OneToOne
+
+    //setting the parent user wrt to child
+    @ManyToOne
+    @JoinColumn
     private User user;
 
     public User getUser() {
@@ -34,7 +35,7 @@ public class Country {
         this.serviceProvider = serviceProvider;
     }
 
-    public Country() {
+    public Connection() {
     }
 
     public int getId() {
@@ -43,21 +44,5 @@ public class Country {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public CountryName getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(CountryName countryName) {
-        this.countryName = countryName;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 }
